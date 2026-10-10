@@ -12,4 +12,330 @@
 <section class="section" id="skills"><div class="section-head"><div><div class="kicker">03 / Инструменты</div><h2>Навыки и интересы</h2></div><p class="sub">Текущий фокус и направления развития.</p></div><div class="skills"><div class="skill"><div class="skill-top"><span>Веб-дизайн и композиция</span><span>Focus</span></div><div class="bar"><i style="--w:86%"></i></div></div><div class="skill"><div class="skill-top"><span>HTML и структура</span><span>Focus</span></div><div class="bar"><i style="--w:78%"></i></div></div><div class="skill"><div class="skill-top"><span>CSS и анимации</span><span>Explore</span></div><div class="bar"><i style="--w:74%"></i></div></div><div class="skill"><div class="skill-top"><span>JavaScript и интерактивность</span><span>Explore</span></div><div class="bar"><i style="--w:62%"></i></div></div></div><p class="sub" style="font-size:.8rem;margin-top:12px">Шкалы показывают направления фокуса в этом шаблоне — настрой их под свои реальные навыки.</p></section>
 <section class="section" id="contact"><div class="contact glass"><div><div class="kicker">04 / На связи</div><h3>Есть идея? Давай создадим.</h3><p>Добавь свои контакты и ссылки — и портфолио готово к знакомству.</p></div><div class="contact-links"><a class="btn primary" href="https://github.com/nifys" target="_blank" rel="noreferrer">GitHub ↗</a><a class="btn" href="https://tiktok.com/@nifyrbx">тикточек ↗</a></div></div></section>
 <footer class="footer"><span><b>NIFY</b> © <span id="year"></span> · Made with curiosity</span><a href="#home">Наверх ↑</a></footer></main>
-<script>const menu=document.getElementById('menubtn'),links=document.getElementById('navlinks');menu.addEventListener('click',()=>links.classList.toggle('open'));links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));document.getElementById('year').textContent=new Date().getFullYear();</script></body></html>
+<script>const menu=document.getElementById('menubtn'),links=document.getElementById('navlinks');menu.addEventListener('click',()=>links.classList.toggle('open'));links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));document.getElementById('year').textContent=new Date().getFullYear();</script>
+<!-- Кастомная страница ошибки интернета -->
+<style>
+  /* Жидкое стекло эффект */
+  .offline-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    backdrop-filter: blur(10px);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .offline-container.show {
+    display: flex;
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 50px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    animation: slideIn 0.5s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .offline-title {
+    color: #fff;
+    font-size: 48px;
+    margin: 0 0 20px 0;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .offline-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 20px;
+    margin: 0 0 40px 0;
+    font-weight: 300;
+  }
+
+  .game-container {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 30px 0;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
+
+  #gameCanvas {
+    display: block;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+  }
+
+  .game-info {
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 15px;
+    font-size: 14px;
+  }
+
+  .controls {
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+  }
+
+  .score-display {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 15px;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .retry-button {
+    margin-top: 30px;
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .retry-button:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .retry-button:active {
+    transform: translateY(0);
+  }
+</style>
+
+<!-- HTML структура -->
+<div id="offlineContainer" class="offline-container">
+  <div class="glass-card">
+    <div class="offline-title">🚗 Оффлайн!</div>
+    <div class="offline-subtitle">Интернет недоступен, но вы можете поиграть!</div>
+    
+    <div class="game-container">
+      <div style="color: rgba(255, 255, 255, 0.9); margin-bottom: 10px;">Управляйте машинкой и собирайте монеты:</div>
+      <canvas id="gameCanvas" width="500" height="300"></canvas>
+      <div class="score-display">Очки: <span id="score">0</span></div>
+      <div class="controls">⬅️ / ➡️ - движение | ПРОБЕЛ - прыжок</div>
+    </div>
+    
+    <button class="retry-button" id="retryBtn">Проверить интернет</button>
+  </div>
+</div>
+
+<!-- JavaScript логика -->
+<script>
+  class CarGame {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.ctx = canvas.getContext('2d');
+      this.gameRunning = true;
+      this.score = 0;
+
+      // Машинка
+      this.car = {
+        x: canvas.width / 2,
+        y: canvas.height - 80,
+        width: 40,
+        height: 50,
+        velocityY: 0,
+        velocityX: 0,
+        isJumping: false,
+        speed: 5,
+        jumpPower: 12,
+        gravity: 0.5
+      };
+
+      // Монеты
+      this.coins = [];
+      this.spawnCoin();
+      this.spawnCoin();
+
+      // Управление
+      this.keys = {};
+      document.addEventListener('keydown', (e) => {
+        this.keys[e.key] = true;
+        if (e.key === ' ') {
+          e.preventDefault();
+          this.jump();
+        }
+      });
+      document.addEventListener('keyup', (e) => {
+        this.keys[e.key] = false;
+      });
+
+      this.animate();
+    }
+
+    spawnCoin() {
+      const coin = {
+        x: Math.random() * (this.canvas.width - 30),
+        y: Math.random() * (this.canvas.height - 150),
+        radius: 8,
+        collected: false
+      };
+      this.coins.push(coin);
+    }
+
+    jump() {
+      if (!this.car.isJumping) {
+        this.car.velocityY = -this.car.jumpPower;
+        this.car.isJumping = true;
+      }
+    }
+
+    update() {
+      // Движение машинки
+      if (this.keys['ArrowLeft'] || this.keys['a']) {
+        this.car.x -= this.car.speed;
+      }
+      if (this.keys['ArrowRight'] || this.keys['d']) {
+        this.car.x += this.car.speed;
+      }
+
+      // Границы
+      if (this.car.x < 0) this.car.x = 0;
+      if (this.car.x + this.car.width > this.canvas.width) {
+        this.car.x = this.canvas.width - this.car.width;
+      }
+
+      // Гравитация
+      this.car.velocityY += this.car.gravity;
+      this.car.y += this.car.velocityY;
+
+      // Приземление
+      if (this.car.y + this.car.height >= this.canvas.height - 20) {
+        this.car.y = this.canvas.height - this.car.height - 20;
+        this.car.velocityY = 0;
+        this.car.isJumping = false;
+      }
+
+      // Проверка сбора монет
+      this.coins.forEach((coin, index) => {
+        const dx = this.car.x + this.car.width / 2 - coin.x;
+        const dy = this.car.y + this.car.height / 2 - coin.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < this.car.width / 2 + coin.radius) {
+          this.score += 10;
+          this.coins.splice(index, 1);
+          this.spawnCoin();
+          document.getElementById('score').textContent = this.score;
+        }
+      });
+    }
+
+    draw() {
+      // Очистка
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+      // Земля
+      this.ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+      this.ctx.fillRect(0, this.canvas.height - 20, this.canvas.width, 20);
+
+      // Машинка (красный прямоугольник с окном)
+      this.ctx.fillStyle = '#FF6B6B';
+      this.ctx.fillRect(this.car.x, this.car.y, this.car.width, this.car.height);
+      
+      // Окно машины
+      this.ctx.fillStyle = 'rgba(100, 150, 255, 0.6)';
+      this.ctx.fillRect(this.car.x + 5, this.car.y + 10, this.car.width - 10, 15);
+
+      // Колеса
+      this.ctx.fillStyle = '#333';
+      this.ctx.beginPath();
+      this.ctx.arc(this.car.x + 10, this.car.y + this.car.height, 5, 0, Math.PI * 2);
+      this.ctx.fill();
+      this.ctx.beginPath();
+      this.ctx.arc(this.car.x + this.car.width - 10, this.car.y + this.car.height, 5, 0, Math.PI * 2);
+      this.ctx.fill();
+
+      // Монеты
+      this.coins.forEach(coin => {
+        this.ctx.fillStyle = '#FFD700';
+        this.ctx.beginPath();
+        this.ctx.arc(coin.x, coin.y, coin.radius, 0, Math.PI * 2);
+        this.ctx.fill();
+        
+        this.ctx.strokeStyle = '#FFA500';
+        this.ctx.lineWidth = 2;
+        this.ctx.stroke();
+      });
+    }
+
+    animate() {
+      this.update();
+      this.draw();
+
+      if (this.gameRunning) {
+        requestAnimationFrame(() => this.animate());
+      }
+    }
+  }
+
+  // Инициализация
+  let game = null;
+
+  function showOfflinePage() {
+    document.getElementById('offlineContainer').classList.add('show');
+    if (!game) {
+      game = new CarGame(document.getElementById('gameCanvas'));
+    }
+  }
+
+  function hideOfflinePage() {
+    document.getElementById('offlineContainer').classList.remove('show');
+  }
+
+  // Проверка интернета
+  function checkConnection() {
+    fetch('https://www.google.com/favicon.ico', { method: 'HEAD', mode: 'no-cors' })
+      .then(() => {
+        hideOfflinePage();
+      })
+      .catch(() => {
+        showOfflinePage();
+      });
+  }
+
+  // Слушатели
+  window.addEventListener('online', hideOfflinePage);
+  window.addEventListener('offline', showOfflinePage);
+
+  // Кнопка проверки
+  document.getElementById('retryBtn').addEventListener('click', checkConnection);
+
+  // Начальная проверка
+  if (!navigator.onLine) {
+    showOfflinePage();
+  }
+      </script></body></html>
